@@ -43,7 +43,7 @@ class Api::V1::ApidocsController < ApplicationController
     Api::V1::PeopleController,
     Person,
     ErrorModel,
-    self,
+    self
   ].freeze
 
   def index

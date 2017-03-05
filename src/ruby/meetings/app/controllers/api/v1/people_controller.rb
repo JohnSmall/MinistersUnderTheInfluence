@@ -18,7 +18,10 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       response 200 do
         key :description, 'person response'
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :type,:object
+            key :'$ref', :Person
+          end
         end
       end
       response :default do
@@ -39,7 +42,12 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       response 200 do
         key :description, 'people response'
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :type,:array
+            items do
+              key :'$ref', :Person
+            end
+          end
         end
       end
       response :default do
@@ -57,6 +65,7 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       key :tags, [
         'person'
       ]
+
       parameter do
         key :name, :name
         key :in, :body
@@ -74,7 +83,9 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       response 200 do
         key :description, 'person response'
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :'$ref', :Person
+          end
         end
       end
       response :default do
