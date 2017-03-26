@@ -1,8 +1,3 @@
-PATH
-  remote: /home/john/ruby_projects/gems/swagger-blocks
-  specs:
-    swagger-blocks (2.0.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -364,6 +359,7 @@ GEM
     sshkit (1.13.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    swagger-blocks (2.0.0)
     syntax (1.2.1)
     thin (1.6.2)
       daemons (>= 1.0.9)
@@ -450,7 +446,7 @@ DEPENDENCIES
   spring-commands-cucumber
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
-  swagger-blocks!
+  swagger-blocks
   syntax
   turbolinks (~> 5)
   uglifier (>= 1.3.0)
