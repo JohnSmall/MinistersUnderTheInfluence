@@ -15,6 +15,8 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
         key :type, :integer
         key :format, :int64
       end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
       response 200 do
         key :description, 'person response'
         schema do
