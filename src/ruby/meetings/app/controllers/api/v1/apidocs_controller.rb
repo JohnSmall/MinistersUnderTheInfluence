@@ -32,6 +32,30 @@ class Api::V1::ApidocsController < ApplicationController
         key :url, 'http://jsonapi.org/'
       end
     end
+    tag do
+      key :name, 'organisation'
+      key :description, 'Organisation operations'
+      externalDocs do
+        key :description, 'See the JSON-API documentation'
+        key :url, 'http://jsonapi.org/'
+      end
+    end
+    tag do
+      key :name, 'government-office'
+      key :description, 'Government Office operations'
+      externalDocs do
+        key :description, 'See the JSON-API documentation'
+        key :url, 'http://jsonapi.org/'
+      end
+    end
+    tag do
+      key :name, 'meeting'
+      key :description, 'Meeting operations'
+      externalDocs do
+        key :description, 'See the JSON-API documentation'
+        key :url, 'http://jsonapi.org/'
+      end
+    end
     key :host, Api::V1::ApidocsController::get_deployment_host || 'example.com'
     key :basePath, '/api/v1'
     key :consumes, ['application/vnd.api+json']
@@ -42,6 +66,12 @@ class Api::V1::ApidocsController < ApplicationController
   SWAGGERED_CLASSES = [
     Api::V1::PeopleController,
     Api::V1::PersonResource,
+    Api::V1::OrganisationResource,
+    Api::V1::OrganisationsController,
+    Api::V1::GovernmentOfficeResource,
+    Api::V1::GovernmentOfficesController,
+    Api::V1::MeetingResource,
+    Api::V1::MeetingsController,
     ErrorModel,
     self
   ].freeze
