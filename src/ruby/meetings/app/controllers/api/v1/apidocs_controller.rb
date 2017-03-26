@@ -41,7 +41,7 @@ class Api::V1::ApidocsController < ApplicationController
   # A list of all classes that have swagger_* declarations.
   SWAGGERED_CLASSES = [
     Api::V1::PeopleController,
-    Person,
+    Api::V1::PersonResource,
     ErrorModel,
     self
   ].freeze
