@@ -44,7 +44,7 @@ gem 'kaminari'
 gem "htmlentities"
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'activemodel-serializers-xml'
-gem 'swagger-blocks'
+gem 'swagger-blocks',path: '/home/john/ruby_projects/gems/swagger-blocks'
 gem 'jsonapi-resources'
 gem 'rack-cors', :require => 'rack/cors'
 
