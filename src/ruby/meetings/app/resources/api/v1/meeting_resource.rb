@@ -1,11 +1,8 @@
 class Api::V1::MeetingResource < Api::V1::MeansOfInfluenceResource
   include Swagger::Blocks
   attributes :purpose
-  _model_name.constantize.reflections.keys.each do | assoc |
-    has_many assoc.to_sym
-  end
 
-  swagger_schema _model_name.to_sym do
+  swagger_schema :Meeting do
       key :type, :object
       property :attributes do
         property :purpose do
@@ -36,8 +33,8 @@ class Api::V1::MeetingResource < Api::V1::MeansOfInfluenceResource
       end
 
       property :relationships do
-        Meeting.reflections.keys.each do | assoc |
-          property assoc.underscore.downcase.to_sym do
+        Api::V1::MeetingResource._relationships.each do | rel |
+          property rel[1].name.underscore.downcase.to_sym do
           property :self do
             key :type,:string
           end

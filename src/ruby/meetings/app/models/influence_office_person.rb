@@ -10,5 +10,5 @@ class InfluenceOfficePerson < ApplicationRecord
   belongs_to :hospitality, foreign_key: 'means_of_influence_id', optional: true
   belongs_to :gift, foreign_key: 'means_of_influence_id', optional: true
   belongs_to :travel, foreign_key: 'means_of_influence_id', optional: true
-  belongs_to :person
+  belongs_to :person, optional: true
 end

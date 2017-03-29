@@ -23,8 +23,8 @@ class Api::V1::PersonResource < Api::V1::EntityResource
       end
 
       property :relationships do
-        Person.reflections.keys.each do | assoc |
-          property assoc.underscore.downcase.to_sym do
+        Api::V1::PersonResource._relationships.each do | rel |
+          property rel[1].name.underscore.downcase.to_sym do
           property :self do
             key :type,:string
           end

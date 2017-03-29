@@ -23,8 +23,8 @@ class Api::V1::GovernmentOfficeResource < Api::V1::EntityResource
       end
 
       property :relationships do
-        GovernmentOffice.reflections.keys.each do | assoc |
-          property assoc.underscore.downcase.to_sym do
+        Api::V1::GovernmentOfficeResource._relationships.each do | rel |
+          property rel[1].name.underscore.downcase.to_sym do
           property :self do
             key :type,:string
           end

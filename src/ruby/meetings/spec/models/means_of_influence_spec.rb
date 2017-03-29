@@ -62,6 +62,7 @@ end
 
 RSpec.describe Gift, type: :model do
   it{ should have_db_column(:gift).of_type(:string)}
+  it{ should have_db_column(:value).of_type(:integer)}
   it{should validate_presence_of(:gift)}
 end
 RSpec.describe MeansOfInfluence,type: :model do

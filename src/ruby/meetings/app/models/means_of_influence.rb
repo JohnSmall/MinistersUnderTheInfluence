@@ -2,7 +2,7 @@ class MeansOfInfluence < ApplicationRecord
   def self.types
     %w(Meeting Hospitality Gift Travel)
   end
-  validates :month, :year, :source_file_id, :source_file_line_number, presence: true
+  validates :year, :source_file_id, :source_file_line_number, presence: true
   has_many :influence_government_office_people
   has_many :influence_organisation_people
   has_many :organisations, through: :influence_organisation_people, source: 'organisation'

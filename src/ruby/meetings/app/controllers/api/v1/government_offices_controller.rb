@@ -58,4 +58,44 @@ class Api::V1::GovernmentOfficesController < JSONAPI::ResourceController
       # end
     end
   end
+
+  Api::V1::GovernmentOfficeResource._relationships.values.reject{|r| r.name =~/people/}.each do | rel |
+    swagger_path "/government-offices/{id}/#{rel.name}" do
+    operation :get do
+      key :description, "Returns an array of #{rel.name} for a single government office"
+      key :operationId, "findGovernmentOffice#{rel.name.capitalize}ById"
+      key :tags, [
+        'government-office'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of government-office to fetch'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      response 200 do
+        key :description, "#{rel.name} response"
+        schema do
+          property :data do
+            key :type,:array
+            items do
+              key :type,:object
+              key :'$ref', rel.name.classify.to_sym
+            end
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
+  end
+  end
 end
