@@ -3,7 +3,7 @@
 # to install from a subdirection
 # As of Capistrano 3.3.3, you can now use the :repo_tree configuration variable,
 # http://capistranorb.com/documentation/getting-started/configuration/
-lock '3.6.1'
+lock '3.8.0'
 set :application, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:directory]}
 set :repo_url, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:repo_url]}
 set :branch, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:branch]}
