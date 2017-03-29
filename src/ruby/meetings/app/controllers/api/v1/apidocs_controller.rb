@@ -24,14 +24,49 @@ class Api::V1::ApidocsController < ApplicationController
         key :name, 'MIT'
       end
     end
-    tag do
-      key :name, 'person'
-      key :description, 'People operations'
+    %w(person organisation government-office meeting hospitality travel gift).each do | tag_name |
+      tag do
+      key :name, tag_name
+      key :description, "#{tag_name.classify} operations"
       externalDocs do
         key :description, 'See the JSON-API documentation'
         key :url, 'http://jsonapi.org/'
       end
     end
+    end
+
+    #     tag do
+    #       key :name, 'person'
+    #       key :description, 'People operations'
+    #       externalDocs do
+    #         key :description, 'See the JSON-API documentation'
+    #         key :url, 'http://jsonapi.org/'
+    #       end
+    #     end
+    #     tag do
+    #       key :name, 'organisation'
+    #       key :description, 'Organisation operations'
+    #       externalDocs do
+    #         key :description, 'See the JSON-API documentation'
+    #         key :url, 'http://jsonapi.org/'
+    #       end
+    #     end
+    #     tag do
+    #       key :name, 'government-office'
+    #       key :description, 'Government Office operations'
+    #       externalDocs do
+    #         key :description, 'See the JSON-API documentation'
+    #         key :url, 'http://jsonapi.org/'
+    #       end
+    #     end
+    #     tag do
+    #       key :name, 'meeting'
+    #       key :description, 'Meeting operations'
+    #       externalDocs do
+    #         key :description, 'See the JSON-API documentation'
+    #         key :url, 'http://jsonapi.org/'
+    #       end
+    #     end
     key :host, Api::V1::ApidocsController::get_deployment_host || 'example.com'
     key :basePath, '/api/v1'
     key :consumes, ['application/vnd.api+json']
@@ -41,9 +76,21 @@ class Api::V1::ApidocsController < ApplicationController
   # A list of all classes that have swagger_* declarations.
   SWAGGERED_CLASSES = [
     Api::V1::PeopleController,
-    Person,
+    Api::V1::PersonResource,
+    Api::V1::OrganisationResource,
+    Api::V1::OrganisationsController,
+    Api::V1::GovernmentOfficeResource,
+    Api::V1::GovernmentOfficesController,
+    Api::V1::MeetingResource,
+    Api::V1::MeetingsController,
+    Api::V1::HospitalityResource,
+    Api::V1::HospitalitiesController,
+    Api::V1::TravelResource,
+    Api::V1::TravelsController,
+    Api::V1::GiftResource,
+    Api::V1::GiftsController,
     ErrorModel,
-    self,
+    self
   ].freeze
 
   def index

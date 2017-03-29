@@ -15,18 +15,23 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
         key :type, :integer
         key :format, :int64
       end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
       response 200 do
         key :description, 'person response'
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :type,:object
+            key :'$ref', :Person
+          end
         end
       end
-      response :default do
-        key :description, 'unexpected error'
-        schema do
-          key :'$ref', :ErrorModel
-        end
-      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
     end
   end
 
@@ -39,101 +44,60 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       response 200 do
         key :description, 'people response'
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :type,:array
+            items do
+              key :'$ref', :Person
+            end
+          end
         end
       end
-      response :default do
-        key :description, 'unexpected error'
-        schema do
-          key :'$ref', :ErrorModel
-        end
-      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
     end
   end
 
-  swagger_path '/people' do
-    operation :post do
-      key :description, 'Create a new person object'
-      key :tags, [
-        'person'
-      ]
-      parameter do
-        key :name, :name
-        key :in, :body
-        key :description, 'Name of the person to add'
-        key :required, true
-        key :type, :string
-      end
-      parameter do
-        key :name, :wikipedia_entry
-        key :in, :body
-        key :description, 'The Wikipedia entry of the person to add'
-        key :required, false
-        key :type, :string
-      end
-      response 200 do
-        key :description, 'person response'
-        schema do
-          key :'$ref', :Person
-        end
-      end
-      response :default do
-        key :description, 'unexpected error'
-        schema do
-          key :'$ref', :ErrorModel
-        end
-      end
-    end
-  end
-
-  swagger_path '/people' do
-    operation :patch do
-      key :description, 'Update a person object'
+  Api::V1::PersonResource._relationships.values.reject{|r| r.name =~/people/}.each do | rel |
+    swagger_path "/people/{id}/#{rel.name}" do
+    operation :get do
+      key :description, "Returns an array of #{rel.name} for a single person"
+      key :operationId, 'findPersonMeetingsById'
       key :tags, [
         'person'
       ]
       parameter do
         key :name, :id
         key :in, :path
-        key :description, 'ID of person to update'
+        key :description, 'ID of person to fetch'
         key :required, true
         key :type, :integer
         key :format, :int64
       end
-      parameter do
-        key :name, :id
-        key :in, :body
-        key :description, 'The id of the person to update'
-        key :required, true
-        key :type, :string
-      end
-      parameter do
-        key :name, :name
-        key :in, :body
-        key :description, 'name of the person to update'
-        key :required, false
-        key :type, :object
-      end
-      parameter do
-        key :name, :wikipedia_entry
-        key :in, :body
-        key :description, 'The Wikipedia entry of the person to update'
-        key :required, false
-        key :type, :string
-      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
       response 200 do
-        key :description, 'person response'
+        key :description, "#{rel.name} response"
         schema do
-          key :'$ref', :Person
+          property :data do
+            key :type,:array
+            items do
+              key :type,:object
+              key :'$ref', rel.name.classify.to_sym
+            end
+          end
         end
       end
-      response :default do
-        key :description, 'unexpected error'
-        schema do
-          key :'$ref', :ErrorModel
-        end
-      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
     end
   end
-
+  end
 end

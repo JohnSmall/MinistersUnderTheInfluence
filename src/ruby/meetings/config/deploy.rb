@@ -1,18 +1,22 @@
 # config valid only for Capistrano 3.1
+# See http://stackoverflow.com/questions/29168/deploying-a-git-subdirectory-in-capistrano/6969505#6969505 for instructions on how
+# to install from a subdirection
+# As of Capistrano 3.3.3, you can now use the :repo_tree configuration variable,
+# http://capistranorb.com/documentation/getting-started/configuration/
+lock '3.6.1'
 set :application, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:directory]}
 set :repo_url, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:repo_url]}
 set :branch, ->{YAML.load_file('config/deploy.yml')[fetch(:stage)][:branch]}
 
-set :apache_domain,->{fetch(:domain)}
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
 # Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
+set :deploy_to, "/home/rails/muti_tree/#{fetch(:stage)}"
 
 # Default value for :scm is :git
 # set :scm, :git
-set :git_strategy, Capistrano::Git::SubmoduleStrategy
+set :repo_tree, 'src/ruby/meetings'
 # Default value for :format is :pretty
 # set :format, :pretty
 
@@ -23,7 +27,7 @@ set :git_strategy, Capistrano::Git::SubmoduleStrategy
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, ['config/database.yml','config/secrets.yml','config/deploy.yml','config/environment_params.yml']
+set :linked_files, ['config/database.yml','config/secrets.yml','config/environment_params.yml']
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads}
@@ -34,24 +38,5 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-namespace :deploy do
-  desc 'Restart application'
-  task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      execute :touch, release_path.join('tmp/restart.txt')
-    end
-  end
-  after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
 
 
-end
