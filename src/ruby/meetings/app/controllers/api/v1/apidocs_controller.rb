@@ -89,6 +89,8 @@ class Api::V1::ApidocsController < ApplicationController
     Api::V1::TravelsController,
     Api::V1::GiftResource,
     Api::V1::GiftsController,
+    Api::V1::SourceFileResource,
+    Api::V1::SourceFilesController,
     ErrorModel,
     self
   ].freeze
