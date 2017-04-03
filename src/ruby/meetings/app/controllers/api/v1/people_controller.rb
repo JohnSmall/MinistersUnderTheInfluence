@@ -41,6 +41,7 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       key :tags, [
         'person'
       ]
+      key :produces, ['application/vnd.api+json']
       response 200 do
         key :description, 'people response'
         schema do
@@ -49,6 +50,47 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
             items do
               key :'$ref', :Person
             end
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
+    operation :post do
+      key :description, 'creates a person record'
+      key :operationId, 'addPerson' 
+      key :tags, [
+        'person'
+      ]
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name, :name
+        key :in, :body
+        key :description, 'Name of the person to add'
+        key :required, true
+        schema do
+          key :'$ref', :PersonInput
+        end
+      end
+      parameter do
+        key :name, :wikipedia_entry
+        key :in, :body
+        key :description, 'Wikipedia entry of the person to add'
+        key :required, false
+        schema do
+          key :'$ref', :PersonInput
+        end
+      end
+      response 200 do
+        key :description, 'people response'
+        schema do
+          property :data do
+            key :'$ref', :Person
           end
         end
       end
