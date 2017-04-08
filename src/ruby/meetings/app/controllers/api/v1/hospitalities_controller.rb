@@ -33,6 +33,51 @@ class Api::V1::HospitalitiesController < JSONAPI::ResourceController
       #   end
       # end
     end
+
+    operation :patch do
+      key :description, 'updates a hospitality record'
+      key :operationId, 'updateHospitality' 
+      key :tags, [
+        'hospitality'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of hospitality to update'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PatchHospitality
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'hospitalities'"
+      end
+      response 200 do
+        key :description, 'hospitalities response'
+        schema do
+          property :data do
+            key :'$ref', :Hospitality
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
   end
 
   swagger_path '/hospitalities' do
@@ -49,6 +94,43 @@ class Api::V1::HospitalitiesController < JSONAPI::ResourceController
             items do
               key :'$ref', :Hospitality
             end
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
+
+    operation :post do
+      key :description, 'creates a hospitality record'
+      key :operationId, 'addHospitality' 
+      key :tags, [
+        'hospitality'
+      ]
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PostHospitality
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'hospitalities'"
+      end
+      response 200 do
+        key :description, 'hospitalities response'
+        schema do
+          property :data do
+            key :'$ref', :Hospitality
           end
         end
       end

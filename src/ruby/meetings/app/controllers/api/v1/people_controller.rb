@@ -33,6 +33,50 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       #   end
       # end
     end
+    operation :patch do
+      key :description, 'updates a person record'
+      key :operationId, 'updatePerson' 
+      key :tags, [
+        'person'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of person to update'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PatchPerson
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'people'"
+      end
+      response 200 do
+        key :description, 'people response'
+        schema do
+          property :data do
+            key :'$ref', :Person
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
   end
 
   swagger_path '/people' do
@@ -69,22 +113,17 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
       key :consumes, ['application/vnd.api+json']
       key :produces, ['application/vnd.api+json']
       parameter do
-        key :name, :name
-        key :in, :body
-        key :description, 'Name of the person to add'
-        key :required, true
+        key :name,:data
+        key :type,:object
+        key :in,:body
         schema do
-          key :'$ref', :PersonInput
+          key :'$ref', :PostPerson
         end
       end
-      parameter do
-        key :name, :wikipedia_entry
-        key :in, :body
-        key :description, 'Wikipedia entry of the person to add'
-        key :required, false
-        schema do
-          key :'$ref', :PersonInput
-        end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'people'"
       end
       response 200 do
         key :description, 'people response'

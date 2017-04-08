@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      resources :apidocs, only:[:index]
+      resources :docs, only:[:index]
+    end
+  end
 
   resources :means_of_influences
   resources :entities
@@ -7,8 +13,6 @@ Rails.application.routes.draw do
     namespace :api do
       namespace :v1 do
         jsonapi_resources (pi_type.underscore.downcase.pluralize.to_sym)
-        resources :apidocs, only:[:index]
-        resources :docs, only:[:index]
       end
     end
   end

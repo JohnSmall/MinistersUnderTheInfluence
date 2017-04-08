@@ -31,6 +31,50 @@ class Api::V1::GovernmentOfficesController < JSONAPI::ResourceController
       #   end
       # end
     end
+    operation :patch do
+      key :description, 'updates a government-office record'
+      key :operationId, 'updateGovernmentOffice' 
+      key :tags, [
+        'government-office'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of government-office to update'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PatchGovernmentOffice
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'government-offices'"
+      end
+      response 200 do
+        key :description, 'government-offices response'
+        schema do
+          property :data do
+            key :'$ref', :GovernmentOffice
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
   end
 
   swagger_path '/government-offices' do
@@ -47,6 +91,42 @@ class Api::V1::GovernmentOfficesController < JSONAPI::ResourceController
             items do
               key :'$ref', :GovernmentOffice
             end
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
+    operation :post do
+      key :description, 'creates a government-office record'
+      key :operationId, 'addGovernmentOffice' 
+      key :tags, [
+        'government-office'
+      ]
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PostGovernmentOffice
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'government-offices'"
+      end
+      response 200 do
+        key :description, 'government-offices response'
+        schema do
+          property :data do
+            key :'$ref', :GovernmentOffice
           end
         end
       end

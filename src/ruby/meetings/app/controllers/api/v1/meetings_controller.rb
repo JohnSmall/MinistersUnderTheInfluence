@@ -33,6 +33,50 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
       #   end
       # end
     end
+    operation :patch do
+      key :description, 'updates a meeting record'
+      key :operationId, 'updateMeeting' 
+      key :tags, [
+        'meeting'
+      ]
+      parameter do
+        key :name, :id
+        key :in, :path
+        key :description, 'ID of meeting to update'
+        key :required, true
+        key :type, :integer
+        key :format, :int64
+      end
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PatchMeeting
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'meetings'"
+      end
+      response 200 do
+        key :description, 'meetings response'
+        schema do
+          property :data do
+            key :'$ref', :Meeting
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
   end
 
   swagger_path '/meetings' do
@@ -49,6 +93,42 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
             items do
               key :'$ref', :Meeting
             end
+          end
+        end
+      end
+      # response :default do
+      #   key :description, 'unexpected error'
+      #   schema do
+      #     key :'$ref', :ErrorModel
+      #   end
+      # end
+    end
+    operation :post do
+      key :description, 'creates a meeting record'
+      key :operationId, 'addMeeting' 
+      key :tags, [
+        'meeting'
+      ]
+      key :consumes, ['application/vnd.api+json']
+      key :produces, ['application/vnd.api+json']
+      parameter do
+        key :name,:data
+        key :type,:object
+        key :in,:body
+        schema do
+          key :'$ref', :PostMeeting
+        end
+      end
+      parameter  do
+        key :name,:type
+        key :type,:string
+        key :description, "type of resource, must be 'meetings'"
+      end
+      response 200 do
+        key :description, 'meetings response'
+        schema do
+          property :data do
+            key :'$ref', :Meeting
           end
         end
       end
@@ -79,7 +159,7 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
       end
       key :consumes, ['application/vnd.api+json']
       key :produces, ['application/vnd.api+json']
-      ref_name = (rel.name =~ /people/ ? 'Person' : rel.name).classify.to_sym
+      ref_name = (rel.name =~ /meetings/ ? 'Meeting' : rel.name).classify.to_sym
       response 200 do
         key :description, "#{rel.name} response"
         schema do

@@ -38,16 +38,50 @@ class Api::V1::GovernmentOfficeResource < Api::V1::EntityResource
 
 
 
-  swagger_schema :GovernmentOfficeInput do
+  swagger_schema "Post#{_model_name}".to_sym do
     allOf do
       schema do
-        key :'$ref', :GovernmentOffice
+        key :required, [:data]
+        property :data do
+          key :type,:object
+          key :required, [:type,:name]
+          property :type do
+            key :type,:string
+          end
+          property :attributes do
+            property :name do
+              key :type, :string
+            end
+            property 'wikipedia-entry' do
+              key :type, :string
+            end
+          end
+        end
       end
+    end
+  end
+
+  swagger_schema "Patch#{_model_name}".to_sym do
+    allOf do
       schema do
-        key :required, [:name]
-        property :id do
-          key :type, :integer
-          key :format, :int64
+        key :required, [:data]
+        property :data do
+          key :type,:object
+          key :required, [:type,:id,:name]
+          property :type do
+            key :type,:string
+          end
+          property :id do
+            key :type,:integer
+          end
+          property :attributes do
+            property :name do
+              key :type, :string
+            end
+            property 'wikipedia-entry' do
+              key :type, :string
+            end
+          end
         end
       end
     end

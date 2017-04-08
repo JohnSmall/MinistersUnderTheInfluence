@@ -24,7 +24,7 @@ class Api::V1::ApidocsController < ApplicationController
         key :name, 'MIT'
       end
     end
-    %w(person organisation government-office meeting hospitality travel gift).each do | tag_name |
+    %w(person organisation government-office meeting hospitality travel gift source-file influence-organisation-person influence-government-office-person).each do | tag_name |
       tag do
       key :name, tag_name
       key :description, "#{tag_name.classify} operations"
@@ -35,38 +35,6 @@ class Api::V1::ApidocsController < ApplicationController
     end
     end
 
-    #     tag do
-    #       key :name, 'person'
-    #       key :description, 'People operations'
-    #       externalDocs do
-    #         key :description, 'See the JSON-API documentation'
-    #         key :url, 'http://jsonapi.org/'
-    #       end
-    #     end
-    #     tag do
-    #       key :name, 'organisation'
-    #       key :description, 'Organisation operations'
-    #       externalDocs do
-    #         key :description, 'See the JSON-API documentation'
-    #         key :url, 'http://jsonapi.org/'
-    #       end
-    #     end
-    #     tag do
-    #       key :name, 'government-office'
-    #       key :description, 'Government Office operations'
-    #       externalDocs do
-    #         key :description, 'See the JSON-API documentation'
-    #         key :url, 'http://jsonapi.org/'
-    #       end
-    #     end
-    #     tag do
-    #       key :name, 'meeting'
-    #       key :description, 'Meeting operations'
-    #       externalDocs do
-    #         key :description, 'See the JSON-API documentation'
-    #         key :url, 'http://jsonapi.org/'
-    #       end
-    #     end
     key :host, Api::V1::ApidocsController::get_deployment_host || 'example.com'
     key :basePath, '/api/v1'
     key :consumes, ['application/vnd.api+json']
@@ -91,6 +59,10 @@ class Api::V1::ApidocsController < ApplicationController
     Api::V1::GiftsController,
     Api::V1::SourceFileResource,
     Api::V1::SourceFilesController,
+    Api::V1::InfluenceOrganisationPersonResource,
+    Api::V1::InfluenceOrganisationPeopleController,
+    Api::V1::InfluenceGovernmentOfficePersonResource,
+    Api::V1::InfluenceGovernmentOfficePeopleController,
     ErrorModel,
     self
   ].freeze

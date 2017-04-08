@@ -8,19 +8,19 @@ class Api::V1::HospitalityResource < Api::V1::MeansOfInfluenceResource
           key :type, :string
         end
         property :year do
-          key :type, :intger
+          key :type, :integer
         end
         property :month do
-          key :type, :intger
+          key :type, :integer
         end
         property :day do
-          key :type, :intger
+          key :type, :integer
         end
-        property :source_file_id do
-          key :type, :intger
+        property "source-file-id" do
+          key :type, :integer
         end
-        property :source_file_line_number do
-          key :type, :intger
+        property "source-file-line-number" do
+          key :type, :integer
         end
       end
 
@@ -47,16 +47,75 @@ class Api::V1::HospitalityResource < Api::V1::MeansOfInfluenceResource
 
 
 
-  swagger_schema :HospitalityInput do
+  swagger_schema "PostHospitality".to_sym do
     allOf do
       schema do
-        key :'$ref', :Hospitality
+        key :required, [:data]
+        property :data do
+          key :type,:object
+          key :required, [:type,:attributes]
+          property :type do
+            key :type,:string
+          end
+          property :attributes do
+            key :required, ["type-of-hospitality",:year,:month]
+            property "type-of-hospitality" do
+              key :type, :string
+            end
+            property :year do
+              key :type, :integer
+            end
+            property :month do
+              key :type, :integer
+            end
+            property :day do
+              key :type, :integer
+            end
+            property "source-file-id" do
+              key :type, :integer
+            end
+            property "source-file-line-number" do
+              key :type, :integer
+            end
+          end
+        end
       end
+    end
+  end
+
+  swagger_schema "PatchHospitality".to_sym do
+    allOf do
       schema do
-        key :required, [:name]
-        property :id do
-          key :type, :integer
-          key :format, :int64
+        key :required, [:data]
+        property :data do
+          key :type,:object
+          key :required, [:type,:id,:name]
+          property :type do
+            key :type,:string
+          end
+          property :id do
+            key :type,:integer
+          end
+          property :attributes do
+            property "type-of-hospitality" do
+              key :type, :string
+            end
+            property :year do
+              key :type, :integer
+            end
+            property :month do
+              key :type, :integer
+            end
+            property :day do
+              key :type, :integer
+            end
+            property "source-file-id" do
+              key :type, :integer
+            end
+            property "source-file-line-number" do
+              key :type, :integer
+            end
+          end
         end
       end
     end
