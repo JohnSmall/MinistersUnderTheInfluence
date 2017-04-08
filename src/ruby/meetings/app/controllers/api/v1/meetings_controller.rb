@@ -57,11 +57,6 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
           key :'$ref', :PatchMeeting
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'meetings'"
-      end
       response 200 do
         key :description, 'meetings response'
         schema do
@@ -119,11 +114,6 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
           key :'$ref', :PostMeeting
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'meetings'"
-      end
       response 200 do
         key :description, 'meetings response'
         schema do
@@ -159,7 +149,7 @@ class Api::V1::MeetingsController < JSONAPI::ResourceController
       end
       key :consumes, ['application/vnd.api+json']
       key :produces, ['application/vnd.api+json']
-      ref_name = (rel.name =~ /meetings/ ? 'Meeting' : rel.name).classify.to_sym
+      ref_name = (rel.name =~ /people/ ? 'Person' : rel.name).classify.to_sym
       response 200 do
         key :description, "#{rel.name} response"
         schema do

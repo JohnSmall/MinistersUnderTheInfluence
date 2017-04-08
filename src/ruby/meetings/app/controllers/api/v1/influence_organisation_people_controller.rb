@@ -42,13 +42,8 @@ class Api::V1::InfluenceOrganisationPeopleController < JSONAPI::ResourceControll
           key :'$ref', :PostInfluenceOrganisationPerson
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'people'"
-      end
       response 200 do
-        key :description, 'people response'
+        key :description, 'influence-organisation-people response'
         schema do
           property :data do
             key :'$ref', :InfluenceOrganisationPerson

@@ -58,11 +58,6 @@ class Api::V1::TravelsController < JSONAPI::ResourceController
           key :'$ref', :PatchTravel
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'travels'"
-      end
       response 200 do
         key :description, 'travels response'
         schema do
@@ -120,11 +115,6 @@ class Api::V1::TravelsController < JSONAPI::ResourceController
         schema do
           key :'$ref', :PostTravel
         end
-      end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'travels'"
       end
       response 200 do
         key :description, 'travels response'

@@ -55,11 +55,6 @@ class Api::V1::OrganisationsController < JSONAPI::ResourceController
           key :'$ref', :PatchOrganisation
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'organisations'"
-      end
       response 200 do
         key :description, 'organisations response'
         schema do
@@ -116,11 +111,6 @@ class Api::V1::OrganisationsController < JSONAPI::ResourceController
         schema do
           key :'$ref', :PostOrganisation
         end
-      end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'organisations'"
       end
       response 200 do
         key :description, 'organisations response'

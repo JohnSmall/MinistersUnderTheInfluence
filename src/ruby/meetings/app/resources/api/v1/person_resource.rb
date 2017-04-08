@@ -42,23 +42,19 @@ class Api::V1::PersonResource < Api::V1::EntityResource
   end
 
   swagger_schema "Post#{_model_name}".to_sym do
-    allOf do
-      schema do
-        key :required, [:data]
-        property :data do
-          key :type,:object
-          key :required, [:type,:name]
-          property :type do
-            key :type,:string
-          end
-          property :attributes do
-            property :name do
-              key :type, :string
-            end
-            property 'wikipedia-entry' do
-              key :type, :string
-            end
-          end
+    key :required, [:data]
+    property :data do
+      key :type,:object
+      key :required, [:type,:name]
+      property :type do
+        key :type,:string
+      end
+      property :attributes do
+        property :name do
+          key :type, :string
+        end
+        property 'wikipedia-entry' do
+          key :type, :string
         end
       end
     end

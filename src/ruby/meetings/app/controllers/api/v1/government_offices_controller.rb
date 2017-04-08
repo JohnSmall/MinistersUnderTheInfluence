@@ -55,11 +55,6 @@ class Api::V1::GovernmentOfficesController < JSONAPI::ResourceController
           key :'$ref', :PatchGovernmentOffice
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'government-offices'"
-      end
       response 200 do
         key :description, 'government-offices response'
         schema do
@@ -116,11 +111,6 @@ class Api::V1::GovernmentOfficesController < JSONAPI::ResourceController
         schema do
           key :'$ref', :PostGovernmentOffice
         end
-      end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'government-offices'"
       end
       response 200 do
         key :description, 'government-offices response'

@@ -58,11 +58,6 @@ class Api::V1::SourceFilesController < JSONAPI::ResourceController
           key :'$ref', :PatchSourceFile
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'source-files'"
-      end
       response 200 do
         key :description, 'source-files response'
         schema do
@@ -121,11 +116,6 @@ class Api::V1::SourceFilesController < JSONAPI::ResourceController
           key :'$ref', :PostSourceFile
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'source-files'"
-      end
       response 200 do
         key :description, 'source-files response'
         schema do
@@ -143,7 +133,7 @@ class Api::V1::SourceFilesController < JSONAPI::ResourceController
     end
   end
 
-  Api::V1::SourceFileResource._relationships.values.each do | rel |
+  Api::V1::SourceFileResource._relationships.values.reject{|r| r.name =~ /means/}.each do | rel |
     swagger_path "/source-files/{id}/#{rel.name.dasherize}" do
     operation :get do
       key :description, "Returns an array of #{rel.name} for a single source-file"

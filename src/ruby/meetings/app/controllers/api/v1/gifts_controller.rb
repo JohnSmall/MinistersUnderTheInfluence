@@ -58,11 +58,6 @@ class Api::V1::GiftsController < JSONAPI::ResourceController
           key :'$ref', :PatchGift
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'gifts'"
-      end
       response 200 do
         key :description, 'gifts response'
         schema do
@@ -120,11 +115,6 @@ class Api::V1::GiftsController < JSONAPI::ResourceController
         schema do
           key :'$ref', :PostGift
         end
-      end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'gifts'"
       end
       response 200 do
         key :description, 'gifts response'

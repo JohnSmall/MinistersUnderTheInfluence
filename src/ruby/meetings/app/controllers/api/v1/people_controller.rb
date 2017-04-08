@@ -57,11 +57,6 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
           key :'$ref', :PatchPerson
         end
       end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'people'"
-      end
       response 200 do
         key :description, 'people response'
         schema do
@@ -119,11 +114,6 @@ class Api::V1::PeopleController < JSONAPI::ResourceController
         schema do
           key :'$ref', :PostPerson
         end
-      end
-      parameter  do
-        key :name,:type
-        key :type,:string
-        key :description, "type of resource, must be 'people'"
       end
       response 200 do
         key :description, 'people response'
